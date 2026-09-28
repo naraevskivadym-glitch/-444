@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Для мами ❤️</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:Arial,sans-serif}
+.screen{position:absolute;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;text-align:center;transition:opacity 1s ease,transform 1s ease}
+.hidden{opacity:0;pointer-events:none;transform:scale(.8)}
+.text{font-size:42px;font-weight:bold;padding:20px;text-shadow:0 0 5px white,0 0 15px #ff8acb,0 0 30px #ff269f}
+button{margin-top:30px;padding:16px 35px;border:0;border-radius:30px;background:#ff4db8;color:white;font-size:20px;font-weight:bold;cursor:pointer;box-shadow:0 0 10px #ff4db8,0 0 30px #ff209f;transition:.3s}
+button:hover{transform:scale(1.1)}
+#final{justify-content:flex-start;padding-top:9vh;overflow-y:auto}
+#finalText{font-size:48px;font-weight:bold;line-height:1.4;text-shadow:0 0 5px white,0 0 15px #ff9cdc,0 0 35px #ff209f}
+.pulse{animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.photos{display:flex;gap:18px;justify-content:center;align-items:center;margin-top:35px;padding:0 20px;opacity:0;transform:translateY(40px) scale(.9);animation:photosIn 1.5s ease forwards;animation-delay:.5s}
+.photo{width:min(27vw,280px);height:min(38vw,390px);object-fit:cover;border-radius:20px;border:2px solid rgba(255,255,255,.35);box-shadow:0 0 20px #ff4db8,0 0 50px rgba(255,32,159,.35);animation:float 4s ease-in-out infinite}
+.photo:nth-child(2){animation-delay:.5s}
+.photo:nth-child(3){animation-delay:1s}
+@keyframes photosIn{to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(.5deg)}}
+.heart{position:absolute;font-size:25px;color:#ff6fc7;animation:fly 4s linear forwards;pointer-events:none}
+@keyframes fly{0%{transform:translateY(0) scale(.5);opacity:0}20%{opacity:1}100%{transform:translateY(-100vh) scale(1.5);opacity:0}}
+@media(max-width:700px){
+#final{padding-top:7vh}
+.text{font-size:30px}
+#finalText{font-size:34px}
+.photos{gap:8px;margin-top:25px;padding:0 10px}
+.photo{width:30vw;height:43vw;border-radius:14px}
+}
+</style>
+</head>
+<body>
+
+<div id="start" class="screen">
+  <div class="text">Мамо, натисни кнопку ❤️</div>
+  <button onclick="start()">Натиснути ❤️</button>
+</div>
+
+<div id="second" class="screen hidden">
+  <div class="text">Я не завжди це кажу...</div>
+</div>
+
+<div id="third" class="screen hidden">
+  <div class="text">Але дякую тобі за все ❤️</div>
+</div>
+
+<div id="final" class="screen hidden">
+  <div id="finalText" class="pulse">Люблю тебе, мам ❤️</div>
+  <div class="photos">
+    <img class="photo" src="IMG_0454.jpeg" alt="Наше фото">
+    <img class="photo" src="IMG_0452.jpeg" alt="Наше фото">
+    <img class="photo" src="IMG_0453.jpeg" alt="Наше фото">
+  </div>
+</div>
+
+<script>
+function hide(id){document.getElementById(id).classList.add("hidden")}
+function show(id){document.getElementById(id).classList.remove("hidden")}
+
+function start(){
+  hide("start");
+  setTimeout(()=>show("second"),800);
+  setTimeout(()=>hide("second"),2800);
+  setTimeout(()=>show("third"),3600);
+  setTimeout(()=>hide("third"),6500);
+  setTimeout(()=>{
+    show("final");
+    createHearts();
+  },7300);
+}
+
+function createHearts(){
+  for(let i=0;i<50;i++){
+    setTimeout(()=>{
+      const heart=document.createElement("div");
+      heart.className="heart";
+      heart.innerText="❤️";
+      heart.style.left=Math.random()*100+"%";
+      heart.style.top=(70+Math.random()*30)+"%";
+      heart.style.fontSize=(15+Math.random()*30)+"px";
+      heart.style.animationDuration=(3+Math.random()*3)+"s";
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(),6000);
+    },i*100);
+  }
+}
+</script>
+</body>
+</html>
